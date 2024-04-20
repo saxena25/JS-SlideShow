@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SlideShow</title>
+</head>
+<body>
+    <div class="container">
+        <div class="display">
+            <div class="slide">
+                <img src="image1.jpg" alt="">
+            </div>
+            <div class="slide">
+                <img src="image2.jpg" alt="">
+            </div>
+            <div class="slide">
+                <img src="image3.jpg" alt="">
+            </div>
+            <div class="slide"> 
+                <img src="image4.jpg" alt="">
+            </div>
+            <div class="slide">
+                <img src="image5.jpg" alt="">
+            </div>
+            <div class="slide">
+                <img src="image6.jpg" alt="">
+            </div>
+            <div class="slide">
+                <img src="image7.jpg" alt="">
+            </div>
+            <div class="slide">
+                <img src="image8.jpg" alt="">
+            </div>
+            <div class="slide">
+                <img src="image9.jpg" alt="">       
+            </div>
+            <div class="slide">
+                <img src="image10.jpg" alt="">
+            </div>
+        </div>
+        <div class="btns">
+            <button class="back-btn">&lt;</button>
+            <button class="start-btn">Start</button>
+            <button class="forward-btn">&gt;</button>
+        </div>
+    </div>
+    <script>
+        let displayImage = document.querySelector('.display');
+        let backBtn = document.querySelector('.back-btn');
+        let StartBtn = document.querySelector('.start-btn');
+        let forwardBtn = document.querySelector('.forward-btn');
+        let slides = document.querySelectorAll('.slide');
+
+        let slideIndex = 0;
+        let intervalId ; 
+        let isSlideShowRunning = false;
+
+        slides.forEach((e)=>{
+            e.style.display = 'none';
+        })
+
+        function showImage(){
+            for(let i = 0; i < slides.length; i++){
+                slides[i].style.display = 'none';
+            }
+            slideIndex++;
+            if(slideIndex > slides.length){
+                slideIndex = 1;
+            }
+            // console.log(slides.length)
+            slides[slideIndex - 1].style.display = 'block';
+        }
+
+        StartBtn.addEventListener('click', ()=>{
+            if(!isSlideShowRunning){
+                intervalId = setInterval(showImage, 2000);
+                StartBtn.innerText = 'Stop'
+            }else{
+                clearInterval(intervalId);
+                StartBtn.innerText = 'start'
+            }
+            isSlideShowRunning = !isSlideShowRunning
+        })
+
+        function plusSlides(n) {
+            clearInterval(intervalId);
+            isSlideshowRunning = false;
+            slideIndex += n;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            } else if (slideIndex < 1) {
+                slideIndex = slides.length;
+            }
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+
+        backBtn.addEventListener('click', ()=> plusSlides(-1))
+        forwardBtn.addEventListener('click', ()=> plusSlides(1))
+
+
+    </script>
+</body>
+</html>
